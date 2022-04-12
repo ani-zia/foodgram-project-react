@@ -31,4 +31,5 @@ urlpatterns = [
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/tags/', include(tags_router.urls)),
     path('api/ingredients/', include(ingredients_router.urls)),
+    path('api/', include('apps.users.urls')),
 ]
