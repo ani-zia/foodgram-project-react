@@ -133,3 +133,4 @@ dmypy.json
 
 # npm
 node_modules/
+frontend/node_modules/
