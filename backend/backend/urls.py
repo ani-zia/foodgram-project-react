@@ -20,6 +20,7 @@ from drf_spectacular.views import (
 )
 
 from apps.ingredients.urls import ingredients_router
+from apps.recipes.urls import recipes_router
 from apps.tags.urls import tags_router
 
 urlpatterns = [
@@ -29,7 +30,8 @@ urlpatterns = [
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     # Путь для спеки от Swagger — тут можно делать запросы как в Postman!
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/tags/', include(tags_router.urls)),
     path('api/ingredients/', include(ingredients_router.urls)),
+    path('api/tags/', include(tags_router.urls)),
+    path('api/recipes/', include(recipes_router.urls)),
     path('api/', include('apps.users.urls')),
 ]

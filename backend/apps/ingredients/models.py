@@ -5,7 +5,7 @@ class Ingredient(models.Model):
     measurement_unit = models.CharField(max_length=200, verbose_name='Measurement unit')
 
     class Meta:
-        ordering = ('id',)
+        ordering = ['id',]
         verbose_name = 'Ingredient'
         verbose_name_plural = 'Ingredients'
     

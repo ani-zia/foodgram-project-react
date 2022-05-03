@@ -6,7 +6,7 @@ class Tag(models.Model):
     slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug')
 
     class Meta:
-        ordering = ('name',)
+        ordering = ['name',]
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
     
