@@ -26,7 +26,7 @@ class Recipe(models.Model):
     )
     name = models.CharField(max_length=200, verbose_name='Title')
     image = models.ImageField(
-        upload_to='../../../media/recipe', verbose_name='Image')
+        upload_to='recipe/', verbose_name='Image')
     text = models.TextField(verbose_name='Descriotion')
     cooking_time = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1)],
