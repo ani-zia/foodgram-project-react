@@ -127,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static_backend/'
-STATIC_ROOT=os.path.join(os.path.dirname(BASE_DIR), 'static_backend')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_backend')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -157,8 +157,9 @@ DJOSER = {
         'current_user': 'apps.users.serializers.CustomUserSerializer',
     },
     'PERMISSIONS': {
-        'user': ('rest_framework.permissions.AllowAny',),
-        'user_list': ('rest_framework.permissions.AllowAny',),
+        'user_list': ['rest_framework.permissions.AllowAny'],
+        'user': ['rest_framework.permissions.IsAuthenticated'],
+        
     },
     'HIDE_USERS': False,
 }

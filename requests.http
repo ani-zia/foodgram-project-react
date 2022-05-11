@@ -1,0 +1,77 @@
+### Регистрация нового пользователя
+
+POST http://127.0.0.1:8000/api/users/
+Content-Type: application/json
+
+{
+  "email": "ant@ant.ru",
+  "username": "Betty2",
+  "first_name": "Betty",
+  "last_name": "Mott",
+  "password": "121314hi"
+}
+
+
+### Получение JWT-токена для суперпользователя
+
+POST http://127.0.0.1:8000/api/auth/token/login/
+Content-Type: application/json
+
+{
+  "password": "admin2",
+  "email": "a@a.ru"
+}
+
+### Получение JWT-токена для пользователя Elen
+
+POST http://127.0.0.1:8000/api/auth/token/login/
+Content-Type: application/json
+
+{
+  "password": "121212go",
+  "email": "b@b.com"
+}
+
+### Получение JWT-токена для пользователя Betty
+
+POST http://127.0.0.1:8000/api/auth/token/login/
+Content-Type: application/json
+
+{
+  "password": "121314hi",
+  "email": "a@ant.ru"
+}
+
+### Токен суперпользователя admin2
+
+@token = 'dcab8e68a2d7b8026b3e35eeffd877d38947e332'
+
+
+### Токен пользователя regular_user
+
+@token2 = '6331e27360fc7ba2dd7fd6283948a138f8d222e5'
+
+### Токен пользователя Betty
+
+@token3 = 'aa9dce356826f16538bf682af14f9e1df342b2fb'
+
+
+### Список пользователей
+GET http://127.0.0.1:8000/api/users/
+
+### 200 Отдельный пользователь 
+GET http://127.0.0.1:8000/api/users/4/
+Authorization: Bearer {{token2}}
+
+### 401 Отдельный пользователь
+GET http://127.0.0.1:8000/api/users/1/
+
+### 404 Отдельный пользователь
+GET http://127.0.0.1:8000/api/users/45/
+
+### 200 Текущий пользователь
+GET http://127.0.0.1:8000/api/users/me/
+Authorization: Bearer {{token2}}
+
+### 401 Текущий пользователь
+GET http://127.0.0.1:8000/api/users/me/
