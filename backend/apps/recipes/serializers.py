@@ -119,13 +119,23 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         return recipe
 
     @transaction.atomic
-    def update(self, recipe, validated_data):
-        recipe.tags.clear()
-        IngredientForRecipe.objects.filter(recipe=recipe).delete()
-        ingredients = validated_data.pop('ingredients')
+    def update(self, instance, validated_data):
+        ingredients = validated_data.pop('ingredients', None)
         tags = validated_data.pop('tags')
-        self.add_recipe_ingredients_tags(recipe, ingredients, tags)
-        return super().update(recipe, validated_data)
+        if tags is not None:
+            instance.tags.set(tags)
+        if ingredients is not None:
+            instance.ingredients.clear()
+
+            create_ingredients = [
+            IngredientForRecipe(
+                recipe=instance,
+                ingredient=ingredient['id'],
+                amount=ingredient['amount'])
+            for ingredient in ingredients]
+        IngredientForRecipe.objects.bulk_create(create_ingredients)
+
+        return super().update(instance, validated_data)
 
     def to_representation(self, obj):
         self.fields.pop('ingredients')
