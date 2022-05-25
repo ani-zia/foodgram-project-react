@@ -18,8 +18,8 @@ POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
 
 {
-  "password": "admin2",
-  "email": "a@a.ru"
+  "password": "admin5",
+  "email": "a@adm.ru"
 }
 
 ### Получение JWT-токена для пользователя Elen
@@ -28,7 +28,7 @@ POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
 
 {
-  "password": "121212go",
+  "password": "Elen5Elen5",
   "email": "b@b.com"
 }
 
@@ -39,12 +39,12 @@ Content-Type: application/json
 
 {
   "password": "121314hi",
-  "email": "a@ant.ru"
+  "email": "ant@ant.ru"
 }
 
 ### Токен суперпользователя admin2
 
-@token = 'dcab8e68a2d7b8026b3e35eeffd877d38947e332'
+@token = 'cea6a65d6f77f38a7dbc94c0328054292a512dcd'
 
 
 ### Токен пользователя regular_user
@@ -53,15 +53,15 @@ Content-Type: application/json
 
 ### Токен пользователя Betty
 
-@token3 = 'aa9dce356826f16538bf682af14f9e1df342b2fb'
+@token3 = 'a7ad03fbe989a62dd155de6c808bbdf84e74e885'
 
 
 ### Список пользователей
 GET http://127.0.0.1:8000/api/users/
 
 ### 200 Отдельный пользователь 
-GET http://127.0.0.1:8000/api/users/4/
-Authorization: Bearer {{token2}}
+GET http://127.0.0.1:8000/api/users/1/
+Authorization: Bearer {{token}}
 
 ### 401 Отдельный пользователь
 GET http://127.0.0.1:8000/api/users/1/
@@ -71,7 +71,60 @@ GET http://127.0.0.1:8000/api/users/45/
 
 ### 200 Текущий пользователь
 GET http://127.0.0.1:8000/api/users/me/
-Authorization: Bearer {{token2}}
+Authorization: Bearer {{token3}}
 
 ### 401 Текущий пользователь
 GET http://127.0.0.1:8000/api/users/me/
+
+
+### 200 Теги - Cписок тегов
+
+GET http://127.0.0.1:8000/api/tags/
+
+
+### 200 Теги - Получение тега
+
+GET http://127.0.0.1:8000/api/tags/1/
+
+
+### 404 Теги - Получение тега
+
+GET http://127.0.0.1:8000/api/tags/356/
+
+
+### 200 Рецепты - Список рецептов
+
+GET http://127.0.0.1:8000/api/recipes/
+Authorization: Bearer {{token3}}
+
+### 200 Рецепты - Создать рецепт
+
+POST http://127.0.0.1:8000/api/recipes/
+Authorization: Bearer {{token3}}
+Content-Type: application/json
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 10
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "string",
+  "text": "string",
+  "cooking_time": 1
+}
+
+
+### 200 Список покупок - Скачать список покупок
+GET http://127.0.0.1:8000/api/recipes/download_shopping_cart/
+Authorization: Bearer {{token3}}
+
+
+### 200 Ингредиенты
+GET http://127.0.0.1:8000/api/ingredients/

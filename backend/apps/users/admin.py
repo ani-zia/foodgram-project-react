@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import Follow
+from django.contrib.auth.admin import UserAdmin
+from .models import User
 
-
-@admin.register(Follow)
-class FollowAdmin(admin.ModelAdmin):
-    list_display = ('user', 'following')
-    search_fields = ('user', 'following')
-    list_filter = ('id', 'user')
-    empty_value_display = '-NONE-'
+admin.site.register(User, UserAdmin)

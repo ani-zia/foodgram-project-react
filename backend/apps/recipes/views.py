@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from .filters import CustomRecipeFilter
-from .models import Favorite, IngredientForRecipe, Recipe, ShopingCart
+from .models import Favorite, IngredientForRecipe, Recipe, ShoppingCart
 from .pagination import CustomPagination
 from .permissions import IsAuthorOrAdminOrReadOnly
 from .serializers import (RecipeListSerializer, 
@@ -41,19 +41,19 @@ class RecipeViewSet(viewsets.ModelViewSet):
         user = request.user
         recipe = get_object_or_404(Recipe, id=pk)
         if request.method == 'POST':
-            if ShopingCart.objects.filter(user=user, recipe=recipe).exists():
+            if ShoppingCart.objects.filter(user=user, recipe=recipe).exists():
                 return Response(
                     {'error': 'Рецепт уже в корзине'},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-            shoping_cart = ShopingCart.objects.create(user=user, recipe=recipe)
+            shoping_cart = ShoppingCart.objects.create(user=user, recipe=recipe)
             serializer = ShoppingCartSerializer(
                 shoping_cart, context={'request': request}
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         if request.method == 'DELETE':
-            delete_shoping_cart = ShopingCart.objects.filter(
+            delete_shoping_cart = ShoppingCart.objects.filter(
                 user=user, recipe=recipe)
             if delete_shoping_cart.exists():
                 delete_shoping_cart.delete()
@@ -97,14 +97,14 @@ class RecipeViewSet(viewsets.ModelViewSet):
         all_count_ingredients = (
             IngredientForRecipe.objects.filter(
                 recipe__recipe_cart__user=request.user)
-            .values('ingredient__name', 'ingredient__measurement_unit')
+            .values('ingredients__name', 'ingredients__measurement_unit')
             .annotate(amount=Sum('amount'))
         )
         shop_list = {}
         for ingredient in all_count_ingredients:
             amount = ingredient['amount']
-            name = ingredient['ingredient__name']
-            measurement_unit = ingredient['ingredient__measurement_unit']
+            name = ingredient['ingredients__name']
+            measurement_unit = ingredient['ingredients__measurement_unit']
             shop_list[name] = {
                 'amount': amount,
                 'measurement_unit': measurement_unit}

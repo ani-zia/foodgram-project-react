@@ -24,16 +24,17 @@ class Command(BaseCommand):
                     DATA_ROOT, options['filename']), 'r', encoding='utf-8'
             ) as csv_file:
                 data = csv.reader(csv_file)
-                for ingredient in data:
+                for row in data:
                     try:
+                        name, unit = row
                         Ingredient.objects.create(
-                            name=ingredient[0],
-                            measurement_unit=ingredient[1],
+                            name = name,
+                            measurement_unit=unit,
                         )
                     except IntegrityError:
                         print(
-                            f'{ingredient["name"]} '
-                            f'{ingredient["measurement_unit"]} '
+                            f'{row["name"]} '
+                            f'{row["measurement_unit"]} '
                             f'already in table'
                         )
         except FileNotFoundError:

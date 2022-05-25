@@ -1,7 +1,7 @@
 from django.db import models
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=200, verbose_name='Name')
+    name = models.CharField(max_length=200, verbose_name='Ingredient name')
     measurement_unit = models.CharField(max_length=200, verbose_name='Measurement unit')
 
     class Meta:
