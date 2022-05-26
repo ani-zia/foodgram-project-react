@@ -9,11 +9,7 @@ User = get_user_model()
 
 
 class CustomRecipeFilter(filters.FilterSet):
-    tags = filters.ModelMultipleChoiceFilter(
-        field_name='tags__slug',
-        to_field_name='slug',
-        queryset=Tag.objects.all(),
-    )
+    tags = filters.AllValuesMultipleFilter(field_name='tags__slug')
     author = filters.ModelChoiceFilter(queryset=User.objects.all())
     is_favorited = filters.BooleanFilter(
         method='get_favorite',
@@ -35,10 +31,10 @@ class CustomRecipeFilter(filters.FilterSet):
 
     def get_favorite(self, queryset, name, item_value):
         if self.request.user.is_authenticated and item_value:
-            queryset = queryset.filter(recipe_favorite__user=self.request.user)
+            queryset = queryset.filter(fav_recipe__user=self.request.user)
         return queryset
 
     def get_shopping(self, queryset, name, item_value):
         if self.request.user.is_authenticated and item_value:
-            queryset = queryset.filter(recipe_cart__user=self.request.user)
+            queryset = queryset.filter(cart_recipe__user=self.request.user)
         return queryset
