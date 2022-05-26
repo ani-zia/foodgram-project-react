@@ -134,3 +134,9 @@ dmypy.json
 # npm
 node_modules/
 frontend/node_modules/
+
+# media & static
+media/
+backend/media/
+static_backend/
+backend/static_backend/
