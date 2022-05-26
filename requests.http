@@ -44,16 +44,16 @@ Content-Type: application/json
 
 ### Токен суперпользователя admin2
 
-@token = 'cea6a65d6f77f38a7dbc94c0328054292a512dcd'
+@token = cea6a65d6f77f38a7dbc94c0328054292a512dcd
 
 
 ### Токен пользователя regular_user
 
-@token2 = '6331e27360fc7ba2dd7fd6283948a138f8d222e5'
+@token2 = b90cd49016e9a034f64a226da13842b03da266c0
 
 ### Токен пользователя Betty
 
-@token3 = 'a7ad03fbe989a62dd155de6c808bbdf84e74e885'
+@token3 = a7ad03fbe989a62dd155de6c808bbdf84e74e885
 
 
 ### Список пользователей
@@ -61,7 +61,7 @@ GET http://127.0.0.1:8000/api/users/
 
 ### 200 Отдельный пользователь 
 GET http://127.0.0.1:8000/api/users/1/
-Authorization: Bearer {{token}}
+Authorization: Token {{token}}
 
 ### 401 Отдельный пользователь
 GET http://127.0.0.1:8000/api/users/1/
@@ -71,7 +71,7 @@ GET http://127.0.0.1:8000/api/users/45/
 
 ### 200 Текущий пользователь
 GET http://127.0.0.1:8000/api/users/me/
-Authorization: Bearer {{token3}}
+Authorization: Token {{token2}}
 
 ### 401 Текущий пользователь
 GET http://127.0.0.1:8000/api/users/me/
@@ -95,12 +95,12 @@ GET http://127.0.0.1:8000/api/tags/356/
 ### 200 Рецепты - Список рецептов
 
 GET http://127.0.0.1:8000/api/recipes/
-Authorization: Bearer {{token3}}
+Authorization: Token {{token3}}
 
 ### 200 Рецепты - Создать рецепт
 
 POST http://127.0.0.1:8000/api/recipes/
-Authorization: Bearer {{token3}}
+Authorization: Token {{token3}}
 Content-Type: application/json
 
 {
@@ -123,7 +123,7 @@ Content-Type: application/json
 
 ### 200 Список покупок - Скачать список покупок
 GET http://127.0.0.1:8000/api/recipes/download_shopping_cart/
-Authorization: Bearer {{token3}}
+Authorization: Token {{token3}}
 
 
 ### 200 Ингредиенты
