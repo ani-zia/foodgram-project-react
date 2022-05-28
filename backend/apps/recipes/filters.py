@@ -1,9 +1,7 @@
-from apps.tags.models import Tag
 from django.contrib.auth import get_user_model
 from django_filters import rest_framework as filters
 
 from .models import Recipe
-
 
 User = get_user_model()
 

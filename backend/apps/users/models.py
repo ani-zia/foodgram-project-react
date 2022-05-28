@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class User(AbstractUser):
@@ -43,7 +43,7 @@ class Follow(models.Model):
     )
 
     class Meta:
-        ordering = ['-id',]
+        ordering = ['-id', ]
         verbose_name = 'Follow'
         verbose_name_plural = 'Follows'
         constraints = [

@@ -1,9 +1,7 @@
 from apps.recipes.models import Recipe
-
 from djoser.serializers import UserCreateSerializer, UserSerializer
-
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
+
 from .models import Follow, User
 
 
@@ -30,7 +28,7 @@ class CustomUserSerializer(UserSerializer):
         if not request or request.user.is_anonymous:
             return False
         return Follow.objects.filter(user=request.user,
-                                        following=obj).exists()
+                                     following=obj).exists()
 
 
 class RecipeForFollowerSerializer(serializers.ModelSerializer):

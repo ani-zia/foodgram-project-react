@@ -5,6 +5,7 @@ from .filters import IngredientSearchFilter
 from .models import Ingredient
 from .serializers import IngredientSerializer
 
+
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     permission_classes = (AllowAny,)

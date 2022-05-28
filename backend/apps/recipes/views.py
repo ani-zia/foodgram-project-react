@@ -11,10 +11,8 @@ from .filters import CustomRecipeFilter
 from .models import Favorite, IngredientForRecipe, Recipe, ShoppingCart
 from .pagination import CustomPagination
 from .permissions import IsAuthorOrAdminOrReadOnly
-from .serializers import (RecipeListSerializer, 
-                          RecipeCreateSerializer, FavoriteSerializer,
-                          ShoppingCartSerializer)
-
+from .serializers import (FavoriteSerializer, RecipeCreateSerializer,
+                          RecipeListSerializer, ShoppingCartSerializer)
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -24,12 +22,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = CustomRecipeFilter
     permission_classes = (IsAuthorOrAdminOrReadOnly,)
-    
+
     def get_serializer_class(self):
         if self.request.method == 'POST' or self.request.method == 'PATCH':
             return RecipeCreateSerializer
         return RecipeListSerializer
-    
+
     @action(
         detail=True,
         methods=['POST', 'DELETE'],
@@ -45,12 +43,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
                     {'error': 'Такой рецепт уже есть в списке'},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-            shoping_cart = ShoppingCart.objects.create(user=user, recipe=recipe)
+            shoping_cart = ShoppingCart.objects.create(user=user,
+                                                       recipe=recipe)
             serializer = ShoppingCartSerializer(
                 shoping_cart, context={'request': request}
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
         if request.method == 'DELETE':
             delete_shoping_cart = ShoppingCart.objects.filter(
                 user=user, recipe=recipe)
@@ -58,6 +56,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 delete_shoping_cart.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     @action(
         detail=False,
@@ -115,3 +114,4 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 favorite.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)

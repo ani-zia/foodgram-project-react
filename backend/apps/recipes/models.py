@@ -1,12 +1,11 @@
 from apps.ingredients.models import Ingredient
 from apps.tags.models import Tag
-
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 from django.db import models
 
-
 User = get_user_model()
+
 
 class Recipe(models.Model):
     ingredients = models.ManyToManyField(
@@ -35,7 +34,7 @@ class Recipe(models.Model):
         )
 
     class Meta:
-        ordering = ['-id',]
+        ordering = ['-id', ]
         verbose_name = 'Recipe'
         verbose_name_plural = 'Recipes'
 
@@ -52,14 +51,15 @@ class IngredientForRecipe(models.Model):
         verbose_name='Ingredient'
         )
     amount = models.PositiveIntegerField(
-        validators=[MinValueValidator(1)], 
+        validators=[MinValueValidator(1)],
         verbose_name='Amount'
         )
 
     class Meta:
-        ordering = ['id',]
+        ordering = ['id', ]
         verbose_name = 'Ingredient in Recipe'
         verbose_name_plural = 'Ingredients in Recipe'
+
         def __str__(self):
             return f'{self.recipe} - {self.ingredient}, {self.amount}'
 
@@ -77,7 +77,7 @@ class Favorite(models.Model):
     )
 
     class Meta:
-        ordering = ['-id',]
+        ordering = ['-id', ]
         verbose_name = 'Favorite'
         verbose_name_plural = 'Favorites'
         constraints = [
@@ -105,7 +105,7 @@ class ShoppingCart(models.Model):
     )
 
     class Meta:
-        ordering = ['id',]
+        ordering = ['id', ]
         verbose_name = 'Shoping Cart'
         verbose_name_plural = 'Shoping Carts'
         constraints = [

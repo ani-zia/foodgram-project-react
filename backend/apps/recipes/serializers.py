@@ -2,16 +2,13 @@ from apps.ingredients.models import Ingredient
 from apps.tags.models import Tag
 from apps.tags.serializers import TagSerializer
 from apps.users.serializers import CustomUserSerializer
-
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from drf_extra_fields.fields import Base64ImageField
-
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from .models import Favorite, IngredientForRecipe, Recipe, ShoppingCart
-
 
 User = get_user_model()
 
@@ -128,11 +125,11 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
             instance.ingredients.clear()
 
             create_ingredients = [
-            IngredientForRecipe(
-                recipe=instance,
-                ingredient=ingredient['id'],
-                amount=ingredient['amount'])
-            for ingredient in ingredients]
+                IngredientForRecipe(
+                    recipe=instance,
+                    ingredient=ingredient['id'],
+                    amount=ingredient['amount'])
+                for ingredient in ingredients]
         IngredientForRecipe.objects.bulk_create(create_ingredients)
 
         return super().update(instance, validated_data)
