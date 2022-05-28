@@ -55,10 +55,10 @@ python3 manage.py runserver
 
 1. Запустить новый терминал и перейти в папку infra
 ```
-cd infra
+cd frontend
 ```
 
-2. Запустить фронт
+2. Запустить фронт локально
 ```
-docker-compose up
+npm run start
 ```
