@@ -9,6 +9,16 @@ class User(AbstractUser):
         verbose_name='email'
     )
 
+    first_name = models.CharField(
+        max_length=150,
+        verbose_name='first_name'
+    )
+
+    last_name = models.CharField(
+        max_length=150,
+        verbose_name='last_name'
+    )
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 

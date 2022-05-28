@@ -1,10 +1,7 @@
-import io
-
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from reportlab.pdfgen import canvas
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -22,9 +19,6 @@ from .serializers import (RecipeListSerializer,
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
-    permission_classes = [
-        IsAuthorOrAdminOrReadOnly,
-    ]
     serializer_class = RecipeCreateSerializer
     pagination_class = CustomPagination
     filter_backends = (DjangoFilterBackend,)
@@ -34,7 +28,41 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if self.request.method == 'POST' or self.request.method == 'PATCH':
             return RecipeCreateSerializer
         return RecipeListSerializer
+    
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            permission_classes = [IsAuthenticated]
+        else:
+            permission_classes = [IsAuthorOrAdminOrReadOnly]
+        return [permission() for permission in permission_classes]
 
+    @action(
+        detail=True,
+        methods=['POST', 'DELETE'],
+        url_path='favorite',
+        permission_classes=[IsAuthenticated],
+    )
+    def favorite(self, request, pk=None):
+        user = request.user
+        recipe = get_object_or_404(Recipe, id=pk)
+        if request.method == 'POST':
+            if Favorite.objects.filter(user=user, recipe=recipe).exists():
+                return Response(
+                    {'error': 'Рецепт уже в избранном'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            favorite = Favorite.objects.create(user=user, recipe=recipe)
+            serializer = FavoriteSerializer(
+                favorite, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        if request.method == 'DELETE':
+            favorite = Favorite.objects.filter(user=user, recipe=recipe)
+            if favorite.exists():
+                favorite.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+    
     @action(
         detail=True,
         methods=['POST', 'DELETE'],
@@ -65,33 +93,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
     @action(
-        detail=True,
-        methods=['POST', 'DELETE'],
-        url_path='favorite',
-        permission_classes=[IsAuthenticated],
-    )
-    def favorite(self, request, pk=None):
-        user = request.user
-        recipe = get_object_or_404(Recipe, id=pk)
-        if request.method == 'POST':
-            if Favorite.objects.filter(user=user, recipe=recipe).exists():
-                return Response(
-                    {'error': 'Рецепт уже в избранном'},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            favorite = Favorite.objects.create(user=user, recipe=recipe)
-            serializer = FavoriteSerializer(
-                favorite, context={'request': request})
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        if request.method == 'DELETE':
-            favorite = Favorite.objects.filter(user=user, recipe=recipe)
-            if favorite.exists():
-                favorite.delete()
-                return Response(status=status.HTTP_204_NO_CONTENT)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    @action(
         detail=False,
         methods=['GET'],
         url_path='download_shopping_cart',
@@ -112,7 +113,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             shop_list.append(
                 f"{name} - {amount} " f"{measurement_unit}\n"
             )
-        
+
         return HttpResponse(
             shop_list,
             {

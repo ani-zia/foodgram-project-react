@@ -1,4 +1,4 @@
-### Регистрация нового пользователя
+### 200 Пользователи - Регистрация нового пользователя
 
 POST http://127.0.0.1:8000/api/users/
 Content-Type: application/json
@@ -11,8 +11,21 @@ Content-Type: application/json
   "password": "121314hi"
 }
 
+### 400 Пользователи - Регистрация нового пользователя
 
-### Получение JWT-токена для суперпользователя
+POST http://127.0.0.1:8000/api/users/
+Content-Type: application/json
+
+{
+  "email": "nnnba@ant.ru",
+  "username": "agara",
+  "first_name": "",
+  "last_name": "",
+  "password": "121314hi"
+}
+
+
+### Пользователи - Получение токена для суперпользователя
 
 POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
@@ -22,7 +35,7 @@ Content-Type: application/json
   "email": "a@adm.ru"
 }
 
-### Получение JWT-токена для пользователя Elen
+### Пользователи - Получение токена для пользователя regular_user
 
 POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
@@ -32,7 +45,7 @@ Content-Type: application/json
   "email": "b@b.com"
 }
 
-### Получение JWT-токена для пользователя Betty
+### Пользователи - Получение токена для пользователя Betty
 
 POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
@@ -42,65 +55,160 @@ Content-Type: application/json
   "email": "ant@ant.ru"
 }
 
-### Токен суперпользователя admin2
+### Пользователи - Получение токена для пользователя nina
 
+POST http://127.0.0.1:8000/api/auth/token/login/
+Content-Type: application/json
+
+{
+  "password": "121314hi",
+  "email": "nn@ant.ru"
+}
+
+
+### Пользователи - Токен суперпользователя admin2
 @token = cea6a65d6f77f38a7dbc94c0328054292a512dcd
 
-
-### Токен пользователя regular_user
-
+### Пользователи - Токен пользователя regular_user
 @token2 = b90cd49016e9a034f64a226da13842b03da266c0
 
-### Токен пользователя Betty
-
+### Пользователи - Токен пользователя Betty2
 @token3 = a7ad03fbe989a62dd155de6c808bbdf84e74e885
 
+### Пользователи - Токен пользователя nina
+@token4 = 07250f472901dab8aee912479c8774d129cfef7d
 
-### Список пользователей
+
+### Пользователи - Список пользователей
 GET http://127.0.0.1:8000/api/users/
 
-### 200 Отдельный пользователь 
-GET http://127.0.0.1:8000/api/users/1/
-Authorization: Token {{token}}
 
-### 401 Отдельный пользователь
-GET http://127.0.0.1:8000/api/users/1/
-
-### 404 Отдельный пользователь
-GET http://127.0.0.1:8000/api/users/45/
-
-### 200 Текущий пользователь
-GET http://127.0.0.1:8000/api/users/me/
+### 200 Пользователи - Профиль пользователя
+GET http://127.0.0.1:8000/api/users/3/
 Authorization: Token {{token2}}
 
-### 401 Текущий пользователь
+### 401 Пользователи - Профиль пользователя
+GET http://127.0.0.1:8000/api/users/3/
+
+### 404 Пользователи - Профиль пользователя
+GET http://127.0.0.1:8000/api/users/45/
+Authorization: Token {{token2}}
+
+
+### 200 Пользователи - Текущий пользователь
 GET http://127.0.0.1:8000/api/users/me/
+Authorization: Token {{token3}}
+
+### 401 Пользователи - Текущий пользователь
+GET http://127.0.0.1:8000/api/users/me/
+
+
+### 204 Пользователи - Изменение пароля
+POST http://127.0.0.1:8000/api/users/set_password/
+Content-Type: application/json
+Authorization: Token {{token4}}
+
+{
+"new_password": "hehe121314",
+"current_password": "121314hi"
+}
+
+### 400 Пользователи - Изменение пароля
+POST http://127.0.0.1:8000/api/users/set_password/
+Content-Type: application/json
+Authorization: Token {{token4}}
+
+{
+"new_password": "11",
+"current_password": "hehe121314"
+}
+
+### 401 Пользователи - Изменение пароля
+POST http://127.0.0.1:8000/api/users/set_password/
+Content-Type: application/json
+
+{
+"new_password": "11",
+"current_password": "hehe121314"
+}
+
+
+### 204 Пользователи - Удаление токена
+POST http://127.0.0.1:8000/api/auth/token/logout/
+Content-Type: application/json
+Authorization: Token {{token4}}
+
+### 401 Пользователи - Удаление токена
+POST http://127.0.0.1:8000/api/auth/token/logout/
+Content-Type: application/json
+
 
 
 ### 200 Теги - Cписок тегов
-
 GET http://127.0.0.1:8000/api/tags/
 
 
 ### 200 Теги - Получение тега
-
 GET http://127.0.0.1:8000/api/tags/1/
 
-
 ### 404 Теги - Получение тега
-
 GET http://127.0.0.1:8000/api/tags/356/
 
 
+
 ### 200 Рецепты - Список рецептов
-
 GET http://127.0.0.1:8000/api/recipes/
-Authorization: Token {{token3}}
 
-### 200 Рецепты - Создать рецепт
+### 200 Рецепты - Список рецептов с фильтрацией
+GET http://127.0.0.1:8000/api/recipes/?tags=obed
 
+
+### 201 Рецепты - Создать рецепт
 POST http://127.0.0.1:8000/api/recipes/
+Content-Type: application/json
 Authorization: Token {{token3}}
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 10
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "Test",
+  "text": "Test description",
+  "cooking_time": 10
+}
+
+### 400 Рецепты - Создать рецепт
+POST http://127.0.0.1:8000/api/recipes/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 10
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "",
+  "text": "Test description",
+  "cooking_time": 0
+}
+
+### 401 Рецепты - Создать рецепт
+POST http://127.0.0.1:8000/api/recipes/
 Content-Type: application/json
 
 {
@@ -115,10 +223,12 @@ Content-Type: application/json
       2
     ],
   "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
-  "name": "string",
-  "text": "string",
-  "cooking_time": 1
+  "name": "Test",
+  "text": "Test description",
+  "cooking_time": 10
 }
+
+
 
 
 ### 200 Список покупок - Скачать список покупок
