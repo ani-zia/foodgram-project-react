@@ -1,5 +1,4 @@
 ### 200 Пользователи - Регистрация нового пользователя
-
 POST http://127.0.0.1:8000/api/users/
 Content-Type: application/json
 
@@ -12,7 +11,6 @@ Content-Type: application/json
 }
 
 ### 400 Пользователи - Регистрация нового пользователя
-
 POST http://127.0.0.1:8000/api/users/
 Content-Type: application/json
 
@@ -26,7 +24,6 @@ Content-Type: application/json
 
 
 ### Пользователи - Получение токена для суперпользователя
-
 POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
 
@@ -36,7 +33,6 @@ Content-Type: application/json
 }
 
 ### Пользователи - Получение токена для пользователя regular_user
-
 POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
 
@@ -46,7 +42,6 @@ Content-Type: application/json
 }
 
 ### Пользователи - Получение токена для пользователя Betty
-
 POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
 
@@ -56,7 +51,6 @@ Content-Type: application/json
 }
 
 ### Пользователи - Получение токена для пользователя nina
-
 POST http://127.0.0.1:8000/api/auth/token/login/
 Content-Type: application/json
 
@@ -228,6 +222,157 @@ Content-Type: application/json
   "cooking_time": 10
 }
 
+### 404 Рецепты - Создать рецепт
+POST http://127.0.0.1:8000/api/recipes1/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 10
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "Test",
+  "text": "Test description",
+  "cooking_time": 10
+}
+
+
+### 200 Рецепты - Получение рецепта
+GET http://127.0.0.1:8000/api/recipes/2
+
+
+### 200 Рецепты - Обновление рецепта
+PATCH http://127.0.0.1:8000/api/recipes/16/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 10
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "New Title",
+  "text": "Test description",
+  "cooking_time": 10
+}
+
+### 400 Рецепты - Обновление рецепта
+PATCH http://127.0.0.1:8000/api/recipes/16/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 0
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "New Title",
+  "text": "Test description",
+  "cooking_time": 10
+}
+
+### 401 Рецепты - Обновление рецепта
+PATCH http://127.0.0.1:8000/api/recipes/16/
+Content-Type: application/json
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 10
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "New Title",
+  "text": "Test description",
+  "cooking_time": 10
+}
+
+### 403 Рецепты - Обновление рецепта
+PATCH http://127.0.0.1:8000/api/recipes/11/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 10
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "New Title",
+  "text": "Test description",
+  "cooking_time": 10
+}
+
+### 404 Рецепты - Обновление рецепта
+PATCH http://127.0.0.1:8000/api/recipes/123/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+{
+  "ingredients": [
+      {
+      "id": 1123,
+      "amount": 10
+      }
+    ],
+  "tags": [
+      1,
+      2
+    ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "New Title",
+  "text": "Test description",
+  "cooking_time": 10
+}
+
+
+### 204 Рецепты - Удаление рецепта
+DELETE http://127.0.0.1:8000/api/recipes/15/
+Authorization: Token {{token3}}
+
+### 401 Рецепты - Удаление рецепта
+DELETE http://127.0.0.1:8000/api/recipes/16/
+
+### 403 Рецепты - Удаление рецепта
+DELETE http://127.0.0.1:8000/api/recipes/16/
+Authorization: Token {{token2}}
+
+### 403 Рецепты - Удаление рецепта
+DELETE http://127.0.0.1:8000/api/recipes/123/
+Authorization: Token {{token3}}
 
 
 
@@ -235,6 +380,104 @@ Content-Type: application/json
 GET http://127.0.0.1:8000/api/recipes/download_shopping_cart/
 Authorization: Token {{token3}}
 
+### 401 Список покупок - Скачать список покупок
+GET http://127.0.0.1:8000/api/recipes/download_shopping_cart/
 
-### 200 Ингредиенты
+
+### 201 Список покупок - Добавить рецепт в список покупок
+POST http://127.0.0.1:8000/api/recipes/6/shopping_cart/
+Authorization: Token {{token3}}
+
+### 400 Список покупок - Добавить рецепт в список покупок
+POST http://127.0.0.1:8000/api/recipes/6/shopping_cart/
+Authorization: Token {{token3}}
+
+### 401 Список покупок - Добавить рецепт в список покупок
+POST http://127.0.0.1:8000/api/recipes/6/shopping_cart/
+
+
+### 204 Список покупок - Удалить рецепт из списка покупок
+DELETE http://127.0.0.1:8000/api/recipes/5/shopping_cart/
+Authorization: Token {{token3}}
+
+### 400 Список покупок - Удалить рецепт из списка покупок
+DELETE http://127.0.0.1:8000/api/recipes/5/shopping_cart/
+Authorization: Token {{token3}}
+
+### 401 Список покупок - Удалить рецепт из списка покупок
+DELETE http://127.0.0.1:8000/api/recipes/5/shopping_cart/
+
+
+
+### 201 Избранное - Добавить рецепт в избранное
+POST http://127.0.0.1:8000/api/recipes/6/favorite/
+Authorization: Token {{token3}}
+
+### 400 Избранное - Добавить рецепт в избранное
+POST http://127.0.0.1:8000/api/recipes/6/favorite/
+Authorization: Token {{token3}}
+
+### 401 Избранное - Добавить рецепт в избранное
+POST http://127.0.0.1:8000/api/recipes/6/favorite/
+
+
+### 204 Избранное - Удалить рецепт из избранного
+DELETE http://127.0.0.1:8000/api/recipes/3/favorite/
+Authorization: Token {{token3}}
+
+### 400 Избранное - Удалить рецепт из избранного
+DELETE http://127.0.0.1:8000/api/recipes/3/favorite/
+Authorization: Token {{token3}}
+
+### 401 Избранное - Удалить рецепт из избранного
+DELETE http://127.0.0.1:8000/api/recipes/3/favorite/
+
+
+
+### 200 Подписки - Мои подписки
+GET http://127.0.0.1:8000/api/users/subscriptions/
+Authorization: Token {{token3}}
+
+### 401 Подписки - Мои подписки
+GET http://127.0.0.1:8000/api/users/subscriptions/
+
+
+### 201 Подписки - Подписаться на пользователя
+POST http://127.0.0.1:8000/api/users/5/subscribe/
+Authorization: Token {{token3}}
+
+### 400 Подписки - Подписаться на пользователя
+POST http://127.0.0.1:8000/api/users/3/subscribe/
+Authorization: Token {{token3}}
+
+### 401 Подписки - Подписаться на пользователя
+POST http://127.0.0.1:8000/api/users/3/subscribe/
+
+### 404 Подписки - Подписаться на пользователя
+POST http://127.0.0.1:8000/api/users/43/subscribe/
+Authorization: Token {{token3}}
+
+
+### 204 Подписки - Отписаться от пользователя
+DELETE http://127.0.0.1:8000/api/users/5/subscribe/
+Authorization: Token {{token3}}
+
+### 400 Подписки - Отписаться от пользователя
+DELETE http://127.0.0.1:8000/api/users/5/subscribe/
+Authorization: Token {{token3}}
+
+### 401 Подписки - Отписаться от пользователя
+DELETE http://127.0.0.1:8000/api/users/3/subscribe/
+
+### 404 Подписки - Отписаться от пользователя
+DELETE http://127.0.0.1:8000/api/users/43/subscribe/
+Authorization: Token {{token3}}
+
+
+
+### 200 Ингредиенты - Список ингредиентов
 GET http://127.0.0.1:8000/api/ingredients/
+
+
+### 200 Ингредиенты - Получение ингредиента
+GET http://127.0.0.1:8000/api/ingredients/45/
