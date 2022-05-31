@@ -136,12 +136,12 @@ node_modules/
 frontend/node_modules/
 
 # media & static
-# media/
-# backend/media/
+media/
+backend/media/
 # static_backend/
 # backend/static_backend/
-# media_value/
-# static_value/
+media_value/
+static_value/
 
 # vscode local
 .vscode/

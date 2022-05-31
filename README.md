@@ -10,17 +10,29 @@
 requests.http
 ```
 
-1. Клонировать репозиторий и перейти в него в командной строке:
+### 2. Запуск на localhost
+
+1. Клонировать репозиторий и перейти в него в командной строке, запустить сборку:
 ```
 git clone https://github.com/ani-zia/foodgram-project-react.git
 ```
 
 ```
-cd foodgram-project-react
+cd foodgram-project-react/infra
 ```
 
-## Load ingredients dictionary
+```
+docker-compose up -d --build
+```
+Команды миграции данных выполняются при сборке.
 
- ```bash
- python manage.py loaddata data/ingredients.json
- ```
+2. Создать суперпользователя
+
+```
+docker-compose exec backend python manage.py createsuperuser
+```
+
+3. Ссылки для проверки:
+http://localhost/
+http://localhost/admin
+http://localhost/api/docs/
