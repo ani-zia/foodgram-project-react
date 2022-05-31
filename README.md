@@ -19,46 +19,8 @@ git clone https://github.com/ani-zia/foodgram-project-react.git
 cd foodgram-project-react
 ```
 
-2. Cоздать и активировать виртуальное окружение:
-```
-python3 -m venv venv
-```
+## Load ingredients dictionary
 
-```
-source venv/bin/activate
-```
-
-3. Установить зависимости из файла requirements.txt:
-```
-python3 -m pip install --upgrade pip
-```
-
-```
-pip install -r requirements.txt
-```
-
-4. Зайти в папку с API и выполнить миграции:
-```
-cd backend
-```
-
-```
-python3 manage.py migrate
-```
-
-5. Запустить проект:
-```
-python3 manage.py runserver
-```
-
-### 2. Локальное тестирование с фронтом
-
-1. Запустить новый терминал и перейти в папку frontend
-```
-cd frontend
-```
-
-2. Запустить фронт локально
-```
-npm run start
-```
+ ```bash
+ python manage.py loaddata data/ingredients.json
+ ```

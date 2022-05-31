@@ -18,6 +18,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        # way = os.path.join(DATA_ROOT, options['filename'])
         try:
             with open(
                 os.path.join(
@@ -38,4 +39,4 @@ class Command(BaseCommand):
                             f'already in table'
                         )
         except FileNotFoundError:
-            raise CommandError('file not found')
+            raise CommandError(f'file not found')
