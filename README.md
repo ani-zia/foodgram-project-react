@@ -33,6 +33,9 @@ docker-compose exec backend python manage.py createsuperuser
 ```
 
 3. Ссылки для проверки:
+
 http://localhost/
+
 http://localhost/admin
+
 http://localhost/api/docs/

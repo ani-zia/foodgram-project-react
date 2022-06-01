@@ -11,8 +11,8 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ['name', ]
-        verbose_name = 'Tag'
-        verbose_name_plural = 'Tags'
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
 
     def __str__(self):
         return f'{self.name}'

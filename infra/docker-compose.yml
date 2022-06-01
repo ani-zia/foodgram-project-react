@@ -10,9 +10,8 @@ services:
      restart: unless-stopped
 
   backend:
-    build:
-      context: ../backend
-      dockerfile: Dockerfile
+    image: annasimanova/foodgram_backend:latest
+    restart: always
     command:
       - /bin/bash
       - -c
@@ -23,7 +22,6 @@ services:
         python manage.py collectstatic --noinput
         python manage.py loaddata data.json
         gunicorn --bind 0:8000 foodgram.wsgi
-    restart: always
     volumes:
       - static_value:/app/static_backend/
       - media_value:/app/media/
@@ -34,9 +32,7 @@ services:
     env_file:
       - ./.env
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: annasimanova/foodgram_frontend:latest
     volumes:
       - ../frontend/:/app/result_build/
   nginx:
