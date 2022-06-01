@@ -13,17 +13,15 @@ class Recipe(models.Model):
         through='IngredientForRecipe',
         through_fields=('recipe', 'ingredient'),
         verbose_name='Ингредиенты'
-        )
+    )
     tags = models.ManyToManyField(
         Tag,
-        verbose_name='Теги',
-        )
+        verbose_name='Теги',)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='recipe',
-        verbose_name='Автор',
-        )
+        verbose_name='Автор',)
     name = models.CharField(max_length=200, verbose_name='Title')
     image = models.ImageField(
         upload_to='recipes/', verbose_name='Картинка')
@@ -31,7 +29,7 @@ class Recipe(models.Model):
     cooking_time = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1)],
         verbose_name='Время приготовления'
-        )
+    )
 
     class Meta:
         ordering = ['-id', ]
@@ -43,17 +41,16 @@ class IngredientForRecipe(models.Model):
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        verbose_name='Рецепт'
-        )
+        verbose_name='Рецепт')
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
         verbose_name='Ингредиент'
-        )
+    )
     amount = models.PositiveIntegerField(
         validators=[MinValueValidator(1)],
         verbose_name='Количество'
-        )
+    )
 
     class Meta:
         ordering = ['id', ]

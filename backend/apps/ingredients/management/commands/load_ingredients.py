@@ -29,7 +29,7 @@ class Command(BaseCommand):
                     try:
                         name, unit = row
                         Ingredient.objects.create(
-                            name = name,
+                            name=name,
                             measurement_unit=unit,
                         )
                     except IntegrityError:
@@ -39,4 +39,4 @@ class Command(BaseCommand):
                             f'already in table'
                         )
         except FileNotFoundError:
-            raise CommandError(f'file not found')
+            raise CommandError('file not found')

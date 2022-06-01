@@ -29,10 +29,10 @@ class CustomRecipeFilter(filters.FilterSet):
 
     def get_favorite(self, queryset, name, item_value):
         if self.request.user.is_authenticated and item_value:
-            queryset = queryset.filter(fav_recipe__user=self.request.user)
+            return queryset.filter(fav_recipe__user=self.request.user)
         return queryset
 
     def get_shopping(self, queryset, name, item_value):
         if self.request.user.is_authenticated and item_value:
-            queryset = queryset.filter(cart_recipe__user=self.request.user)
+            return queryset.filter(cart_recipe__user=self.request.user)
         return queryset
