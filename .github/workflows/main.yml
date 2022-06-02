@@ -62,6 +62,7 @@ jobs:
         script: |
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
+          cd foodgram-project-react/infra
           sudo docker-compose down -v
           sudo systemctl stop nginx
           sudo docker-compose rm backend
