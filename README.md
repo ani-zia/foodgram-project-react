@@ -14,7 +14,23 @@ git clone https://github.com/ani-zia/foodgram-project-react.git
 ```
 
 ```
-cd foodgram-project-react/infra
+cd foodgram-project-react
+```
+
+2. Создать и активировать виртуальное окружениеЖ
+
+```
+python3 -m venv venv
+```
+
+```
+source venv/bin/activate
+```
+
+3. Собрать и запустить проект в контейнерах
+
+```
+cd infra
 ```
 
 ```
