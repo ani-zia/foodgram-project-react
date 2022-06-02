@@ -7,7 +7,7 @@ services:
        - pg-db:/var/lib/postgresql/data
      env_file:
       - ./.env
-     restart: unless-stopped
+     restart: always
 
   backend:
     image: annasimanova/foodgram_backend:latest
