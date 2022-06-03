@@ -9,13 +9,14 @@ services:
       - ./.env
 
   backend:
-    image: annasimanova/foodgram_backend:latest
+    build:
+     context: ../backend
+     dockerfile: Dockerfile
     restart: always
     command:
       - /bin/bash
       - -c
       - |
-        ./wait-for 127.0.0.1:5432
         python manage.py makemigrations
         python manage.py migrate
         python manage.py load_ingredients ingredients.csv
@@ -32,7 +33,9 @@ services:
     env_file:
       - ./.env
   frontend:
-    image: annasimanova/foodgram_frontend:latest
+    build:
+     context: ../frontend
+     dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
   nginx:
@@ -40,7 +43,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.dev.conf:/etc/nginx/conf.d/default.conf
       - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
       - static_value:/var/html/static_backend/
