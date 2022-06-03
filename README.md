@@ -5,6 +5,11 @@
 ![workflow badge](https://github.com/ani-zia/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 
 Сайт в облаке: http://84.201.180.5/
+Вход для админа:
+```
+a@adm.ru
+admin5
+```
 
 ### 1. Запуск на localhost
 
@@ -27,24 +32,35 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-3. Собрать и запустить проект в контейнерах
+3. Шаблон .env файла (значения можно применить из default в файле settings.py):
+
+```
+DB_ENGINE=
+DB_NAME=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+DB_HOST=
+DB_PORT=
+```
+
+4. Собрать и запустить dev-проект в контейнерах
 
 ```
 cd infra
 ```
 
 ```
-docker-compose up -d --build
+docker-compose -f docker-compose.dev.yml up -d --build
 ```
 Команды миграции данных выполняются при сборке.
 
-2. Создать суперпользователя
+5. Создать суперпользователя
 
 ```
 docker-compose exec backend python manage.py createsuperuser
 ```
 
-3. Ссылки для проверки:
+6. Ссылки для проверки:
 
 http://localhost/
 
