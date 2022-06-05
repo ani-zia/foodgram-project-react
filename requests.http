@@ -360,8 +360,8 @@ Authorization: Token {{token3}}
 
 
 ### 204 Рецепты - Удаление рецепта
-DELETE http://127.0.0.1:8000/api/recipes/15/
-Authorization: Token {{token3}}
+DELETE http://127.0.0.1:8000/api/recipes/6/
+Authorization: Token {{token2}}
 
 ### 401 Рецепты - Удаление рецепта
 DELETE http://127.0.0.1:8000/api/recipes/16/
@@ -443,7 +443,7 @@ GET http://127.0.0.1:8000/api/users/subscriptions/
 
 
 ### 201 Подписки - Подписаться на пользователя
-POST http://127.0.0.1:8000/api/users/5/subscribe/
+POST http://127.0.0.1:8000/api/users/4/subscribe/
 Authorization: Token {{token3}}
 
 ### 400 Подписки - Подписаться на пользователя
@@ -459,7 +459,7 @@ Authorization: Token {{token3}}
 
 
 ### 204 Подписки - Отписаться от пользователя
-DELETE http://127.0.0.1:8000/api/users/5/subscribe/
+DELETE http://127.0.0.1:8000/api/users/4/subscribe/
 Authorization: Token {{token3}}
 
 ### 400 Подписки - Отписаться от пользователя
